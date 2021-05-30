@@ -1,4 +1,6 @@
-function countingValleys(steps, path) {
+// When valley or mountain is considered after 2 consecutive steps from sea level
+
+function countingValleys1(steps, path) {
   // Write your code here
   let stepsFromSeaLevel = 0;
   let prevStepsFromSeaLevel = 0;
@@ -18,8 +20,7 @@ function countingValleys(steps, path) {
     } else if (step === "U") {
       stepsFromSeaLevel++;
     }
-    if (stepsFromSeaLevel === -2) {
-    }
+
     if (stepsFromSeaLevel === -2) {
       valleyPoint = true;
     } else if (stepsFromSeaLevel === 2) {
@@ -41,7 +42,45 @@ function countingValleys(steps, path) {
       mountainPoint = false;
     }
   });
-  console.log(valleyCount);
-  console.log(mountainCount);
+  console.log(
+    "valleyCount -> ",
+    valleyCount,
+    " | ",
+    "mountainCount -> ",
+    mountainCount
+  );
 }
-countingValleys(26, "DDUUDDUUDDUUUUDDUUUDDUUDDD");
+countingValleys1(10, "DUDUDUUDUD");
+
+// Case 2 - when the valley and mountain is considered only after a single step from the sea level
+
+function countingValleys2(steps, path) {
+  // Write your code here
+  let stepsFromSeaLevel = 0;
+  let valleyCount = 0;
+  let mountainCount = 0;
+  for (let i = 0; i < steps; i++) {
+    const step = path.charAt(i);
+    if (step === "U") {
+      stepsFromSeaLevel++;
+      if (stepsFromSeaLevel === 0) {
+        valleyCount++;
+      }
+    } else {
+      stepsFromSeaLevel--;
+      if (stepsFromSeaLevel === 0) {
+        mountainCount++;
+      }
+    }
+  }
+
+  console.log(
+    "valleyCount -> ",
+    valleyCount,
+    " | ",
+    "mountainCount -> ",
+    mountainCount
+  );
+  return valleyCount;
+}
+countingValleys2(10, "DUDUDUUDUD");
